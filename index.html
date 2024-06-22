@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home Page</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+        .content {
+            flex: 1;
+        }
+        .fortune-box {
+            margin-top: 20px;
+            padding: 20px;
+            border: 2px solid #000000;
+            background-color: #e9e0e0;
+            color: #000000;
+            text-align: center;
+            font-family: Amiri, serif;
+            font-weight: serif;
+        }
+        footer {
+            text-align: center;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="content">
+    <h1>My Home Page</h1>
+    <a href="convert.html">"Currnecy Converter</a>
+    <a href="quiz.html">"Quiz"</a>
+    
+
+    <div id="fortune" class="fortune-box">
+    </div>
+</div>
+
+<footer>
+<p></p>
+</footer>
+
+<script>
+    function fetchFortune() {
+        var fortunes = ["An unexpected event will soon bring you fortune.",
+"Your talents will be recognized and suitably rewarded.",
+"A pleasant surprise is waiting for you.",
+"Good things come to those who wait. Be patient.",
+"A thrilling time is in your immediate future.",
+"Believe in yourself and others will too.",
+"Your hard work will soon pay off.",
+"Success will come to you from a new venture.",
+"You will travel to many exotic places in your lifetime.",
+"New opportunities will present themselves soon.",
+"Someone close to you has a secret to share.",
+"A fresh start will put you on your way.",
+"Your abilities are unparalleled.",
+"You will be surrounded by things of luxury.",
+"A new perspective will come with the new year.",
+"Your life will be happy and peaceful.",
+"An important decision will soon be made in your favor.",
+"Happiness begins with facing life with a smile and a wink.",
+"You will be successful in your career.",
+"A pleasant surprise is in store for you.",
+"Your creativity will shine through in an unexpected way.",
+"Adventure can be real happiness.",
+"Believe it can be done.",
+"You will have a bright future.",
+"Trust your intuition. It is more important than you think.",
+"A new relationship is about to blossom.",
+"Someone is speaking well of you.",
+"Your dearest wish will come true.",
+"Your love life will be happy and harmonious.",
+"Today is the day to show someone you care.",
+"Success is in your future.",
+        ];
+
+        var randomIndex = Math.floor(Math.random() * fortunes.length);
+        document.getElementById("fortune").innerHTML = fortunes[randomIndex];
+    }
+    
+    fetchFortune();
+</script>
+
+</body>
+</html>

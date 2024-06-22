@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+        }
+        .question {
+            margin-bottom: 15px;
+        }
+        .result {
+            margin-top: 20px;
+            font-weight: bold;
+        }
+        .correct {
+            color: green;
+        }
+        .incorrect {
+            color: red;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Quiz</h1>
+    <label for="numQuestions">Number of questions:</label>
+    <input type="number" id="numQuestions" min="1" max="10" value="5">
+    <button onclick="startQuiz()">Start Quiz</button>
+    <div id="quizContainer"></div>
+    <div id="resultsContainer"></div>
+</div>
+
+<script>
+    const questions = [
+        {
+            question: "What is the capital of Missouri?",
+            answers: { A: "Kansas City", B: "Jefferson City", C: "St. Louis" },
+            correct: "B"
+        },
+        {
+            question: "How many ounces in a pound?",
+            answers: { A: "10", B: "12", C: "16" },
+            correct: "C"
+        },
+        {
+            question: "Who was the first person to set foot on the moon?",
+            answers: { A: "Buzz Aldrin", B: "Yuri Gagarin", C: "Neil Armstrong" },
+            correct: "C"
+        },
+        {
+            question: "Who holds the Major League Baseball record for most home runs in a season?",
+            answers: { A: "Barry Bonds", B: "Mark McGwire", C: "Sammy Sosa" },
+            correct: "A"
+        },
+        {
+            question: "In what year was University of Liverpool founded?",
+            answers: { A: "1250", B: "1881", C: "1901" },
+            correct: "B"
+        },
+        {
+            question: "What is the chemical symbol for gold?",
+            answers: { A: "Au", B: "Ag", C: "Go" },
+            correct: "A"
+        },
+        {
+            question: "Which planet is known as the Red Planet?",
+            answers: { A: "Earth", B: "Mars", C: "Jupiter" },
+            correct: "B"
+        },
+        {
+            question: "Who wrote 'Romeo and Juliet'?",
+            answers: { A: "William Shakespeare", B: "Charles Dickens", C: "Mark Twain" },
+            correct: "A"
+        },
+        {
+            question: "What is the capital of Australia?",
+            answers: { A: "Sydney", B: "Melbourne", C: "Canberra" },
+            correct: "C"
+        },
+        {
+            question: "Which element has the atomic number 1?",
+            answers: { A: "Oxygen", B: "Hydrogen", C: "Helium" },
+            correct: "B"
+        }
+    ];
+
+    let selectedQuestions = [];
+    let currentQuestionIndex = 0;
+    let correctAnswersCount = 0;
+
+    function startQuiz() {
+        const numQuestions = document.getElementById('numQuestions').value;
+        if (numQuestions < 1 || numQuestions > questions.length) {
+            alert('Please select a valid number of questions.');
+            return;
+        }
+
+        selectedQuestions = [];
+        currentQuestionIndex = 0;
+        correctAnswersCount = 0;
+
+        // Randomly select questions
+        const shuffledQuestions = [...questions].sort(() => 0.5 - Math.random());
+        selectedQuestions = shuffledQuestions.slice(0, numQuestions);
+
+        document.getElementById('resultsContainer').innerHTML = '';
+        displayQuestion();
+    }
+
+    function displayQuestion() {
+        const question = selectedQuestions[currentQuestionIndex];
+        const quizContainer = document.getElementById('quizContainer');
+        quizContainer.innerHTML = `
+            <div class="question">
+                <p>${question.question}</p>
+                <input type="radio" name="answer" value="A"> A) ${question.answers.A}<br>
+                <input type="radio" name="answer" value="B"> B) ${question.answers.B}<br>
+                <input type="radio" name="answer" value="C"> C) ${question.answers.C}<br>
+                <button onclick="submitAnswer()">Submit Answer</button>
+            </div>
+        `;
+    }
+
+    function submitAnswer() {
+        const selectedAnswer = document.querySelector('input[name="answer"]:checked');
+        if (!selectedAnswer) {
+            alert('Please select an answer.');
+            return;
+        }
+
+        const question = selectedQuestions[currentQuestionIndex];
+        const userAnswer = selectedAnswer.value;
+        const quizContainer = document.getElementById('quizContainer');
+        const resultsContainer = document.getElementById('resultsContainer');
+
+        if (userAnswer === question.correct) {
+            correctAnswersCount++;
+            resultsContainer.innerHTML += `
+                <p class="correct">Question: ${question.question}<br>
+                You guessed ${userAnswer}) ${question.answers[userAnswer]}<br>
+                CORRECT</p>
+            `;
+        } else {
+            resultsContainer.innerHTML += `
+                <p class="incorrect">Question: ${question.question}<br>
+                You guessed ${userAnswer}) ${question.answers[userAnswer]}<br>
+                INCORRECT: the correct answer is ${question.correct}) ${question.answers[question.correct]}</p>
+            `;
+        }
+
+        currentQuestionIndex++;
+        if (currentQuestionIndex < selectedQuestions.length) {
+            displayQuestion();
+        } else {
+            displayResults();
+        }
+    }
+
+    function displayResults() {
+        const totalQuestions = selectedQuestions.length;
+        const percentage = ((correctAnswersCount / totalQuestions) * 100).toFixed(2);
+        const resultsContainer = document.getElementById('resultsContainer');
+        resultsContainer.innerHTML += `
+            <div class="result">
+                <p>You answered ${correctAnswersCount} out of ${totalQuestions} questions correctly (${percentage}%).</p>
+            </div>
+        `;
+        document.getElementById('quizContainer').innerHTML = '';
+    }
+</script>
+
+</body>
+</html>
