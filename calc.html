@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+        }
+
+    </style>
+</head>
+<body>
+
+    <div>
+        <label for="numbers">Input Series of Numbers:</label><br>
+        <input type="text" id="numbers"/>
+        <br>
+        <button onclick="performCalc()">Run</button>
+    </div>
+    <div class="result" id="result"></div>
+
+    <script>
+        function performCalc() {
+            const input = document.getElementById("numbers").value;
+            const resultDiv = document.getElementById("result");
+
+            if (!input) {
+                resultDiv.innerHTML = "<div>Please enter a series of numbers separated by commas.</div>";
+                return;
+            }
+
+            const numbers = input.split(",").map(num => parseFloat(num.trim()));
+
+            if (numbers.some(isNaN)) {
+                resultDiv.innerHTML = "<div>Please enter valid numbers only.</div>";
+                return;
+            }
+            const max = Math.max(...numbers);
+            const min = Math.min(...numbers);
+            const sum = numbers.reduce((acc, num) => acc + num, 0);
+            const average = (sum / numbers.length).toFixed(12);
+            const reverseOrder = numbers.reverse().join(",");
+
+            resultDiv.innerHTML = 
+            `
+                <div>Max: ${max}</div>
+                <div>Min: ${min}</div>
+                <div>Sum: ${sum}</div>
+                <div>Average: ${average}</div>
+                <div>Reverse Order: ${reverseOrder}</div>
+            `;
+        }
+    </script>
+</body>
+</html>
