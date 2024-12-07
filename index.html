@@ -18,28 +18,46 @@
         .fortune-box {
             margin-top: 20px;
             padding: 20px;
-            border: 2px solid #000000;
+            border: 6px solid #000000;
             background-color: #e9e0e0;
             color: #000000;
             text-align: center;
             font-family: Amiri, serif;
-            font-weight: serif;
+            font-size: 16px;
         }
         footer {
             text-align: center;
             margin-top: 20px;
         }
+        .color-buttons button {
+            margin: 5px;
+            padding: 10px 20px;
+            border: none;
+            cursor: pointer;
+        }
+        .red-button { background-color: red; color: white; }
+        .green-button { background-color: green; color: white; }
+        .blue-button { background-color: blue; color: white; }
+        .black-button { background-color: black; color: white; }
     </style>
 </head>
 <body>
 
 <div class="content">
     <h1>My Home Page</h1>
-    <a href="convert.html">"Hero Converter</a>
+    <a href="convert.html">"Part 1.2"</a>
     <a href="calc.html">"Part 2"</a>
+    <a href="magic.html">"Part 3"</a>
     
 
     <div id="fortune" class="fortune-box">
+    </div>
+
+    <div class="color-buttons">
+        <button class="red-button" onclick="changeColor('red','green', 'blue', 'Courier New', '18px')">Red</button>
+        <button class="green-button" onclick="changeColor('green','red', 'black', 'Georgia', '20px')">Green</button>
+        <button class="blue-button" onclick="changeColor('blue','black', 'green', 'Verdana', '22px')">Blue</button>
+        <button class="black-button" onclick="changeColor('black','blue', 'blue', 'Times New Roman', '24px')">Black</button>
     </div>
 </div>
 
@@ -85,7 +103,17 @@
         var randomIndex = Math.floor(Math.random() * fortunes.length);
         document.getElementById("fortune").innerHTML = fortunes[randomIndex];
     }
-    
+
+    function changeColor(backgroundColor, textColor, borderColor, fontFamily, fontSize) {
+        fetchFortune();
+        const fortuneBox = document.getElementById("fortune");
+        fortuneBox.style.backgroundColor = backgroundColor;
+        fortuneBox.style.color = textColor;
+        fortuneBox.style.borderColor = borderColor;
+        fortuneBox.style.fontFamily = fontFamily;
+        fortuneBox.style.fontSize = fontSize;
+    }
+
     fetchFortune();
 </script>
 

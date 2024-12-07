@@ -3,27 +3,34 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  
     <style>
         body {
             font-family: Arial, sans-serif;
             display: flex;
             justify-content: center;
             align-items: center;
-
+            height: 100vh;
+            margin: 0;
         }
-
+        .container {
+            text-align: center;
+        }
+        input {
+            width: 300px;
+            padding: 5px;
+            margin-bottom: 10px;
+        }
+        .result div {
+            margin: 5px 0;
+        }
     </style>
 </head>
 <body>
-
-    <div>
+    <div class="container">
         <label for="numbers">Input Series of Numbers:</label><br>
-        <input type="text" id="numbers"/>
-        <br>
-        <button onclick="performCalc()">Run</button>
+        <input type="text" id="numbers" placeholder="Enter numbers separated by commas" oninput="performCalc()" />
+        <div class="result" id="result"></div>
     </div>
-    <div class="result" id="result"></div>
 
     <script>
         function performCalc() {
@@ -43,9 +50,12 @@
             }
             const max = Math.max(...numbers);
             const min = Math.min(...numbers);
-            const sum = numbers.reduce((acc, num) => acc + num, 0);
-            const average = (sum / numbers.length).toFixed(12);
-            const reverseOrder = numbers.reverse().join(",");
+            let sum = 0;
+            for (const num of numbers) {
+                sum += num;
+            }
+            const average = (sum / numbers.length).toFixed(2);
+            const reverseOrder = numbers.slice().reverse().join(", ");
 
             resultDiv.innerHTML = 
             `

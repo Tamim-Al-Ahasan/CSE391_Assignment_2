@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Magic!</title>
+    <style>
+        textarea {
+            width: 100%;
+            height: 200px;
+            margin-bottom: 10px;
+        }
+        button {
+            margin-right: 5px;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Magic!</h1>
+    <textarea id="textArea"></textarea><br>
+    <button onclick="clearText()">Clear It</button>
+    <button onclick="capitalizeText()">Capitalize</button>
+    <button onclick="sortText()">Sort</button>
+    <button onclick="reverseText()">Reverse</button>
+    <button onclick="stripBlank()">Strip Blank</button>
+    <button onclick="addNumbers()">Add Numbers</button>
+    <button onclick="shuffleText()">Shuffle</button>
+
+    <script>
+        let isUpperCase = false;
+
+        function getTextAreaLines() {
+            const text = document.getElementById("textArea").value;
+            return text.split("\n");
+        }
+
+        function setTextAreaLines(lines) {
+            document.getElementById("textArea").value = lines.join("\n");
+        }
+
+        function clearText() {
+            document.getElementById("textArea").value = "";
+        }
+
+        function capitalizeText() {
+            let lines = getTextAreaLines();
+            lines = lines.map(line => isUpperCase ? line.toLowerCase() : line.toUpperCase());
+            isUpperCase = !isUpperCase;
+            setTextAreaLines(lines);
+        }
+
+        function sortText() {
+            let lines = getTextAreaLines();
+            lines.sort();
+            setTextAreaLines(lines);
+        }
+
+        function reverseText() {
+            let lines = getTextAreaLines();
+            lines = lines.reverse();
+            setTextAreaLines(lines);
+        }
+
+        function stripBlank() {
+            let lines = getTextAreaLines();
+            lines = lines.map(line => line.trim()).filter(line => line.length > 0);
+            setTextAreaLines(lines);
+        }
+
+        function addNumbers() {
+            let lines = getTextAreaLines();
+            lines = lines.map((line, index) => `${index + 1}. ${line}`);
+            setTextAreaLines(lines);
+        }
+
+        function shuffleText() {
+            let lines = getTextAreaLines();
+            for (let i = lines.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [lines[i], lines[j]] = [lines[j], lines[i]];
+            }
+            setTextAreaLines(lines);
+        }
+    </script>
+</body>
+</html>
